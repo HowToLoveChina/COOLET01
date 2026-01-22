@@ -35,3 +35,4 @@
 
 RSTB与GPIO16短接才能低功耗
 
+VCC,GND,U0RXD,U0TXD 接串口，GPIO0接地，刷写模块成功
