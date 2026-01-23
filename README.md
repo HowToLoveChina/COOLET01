@@ -32,6 +32,10 @@
 |  6   | 经R6接地| LED负 |  无功能 | OOOO | GND |
 |  7   | VDDPST,PIN17,11| IR.3   | 红外供电 | OOOO | 无 |
 
+### 功率计量芯片的设置 
+ATT7021.SCF = .S0 = 经电阻接.V2P 
+ATT7021.S1 经电阻接 RESET/       
+查表可知101 对应倍率是64倍
 
 RSTB与GPIO16短接才能低功耗
 
