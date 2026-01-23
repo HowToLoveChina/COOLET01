@@ -39,7 +39,9 @@ ATT7021.S1 经电阻接 RESET/
 
 通过计算输出信号CF的平均周期计算出功率，累计CF的数量确定用电量。
 
-### 功率计量的MQTT上报在HomeAssitant
+### 电量的统计
+
+#### 功率计量的MQTT上报在HomeAssitant
 
 
 
@@ -90,6 +92,33 @@ ATT7021.S1 经电阻接 RESET/
   "power": 356.4,
   "energy": 12.345
 }
+```
+### 开关的控制
+
+homeassistant/switch/smart_plug/relay/config
+
+```
+{
+  "name": "Smart Plug Switch",
+  "unique_id": "smart_plug_relay_001",
+  "command_topic": "home/smartplug/relay/set",
+  "state_topic": "home/smartplug/relay/state",
+  "payload_on": "ON",
+  "payload_off": "OFF",
+  "state_on": "ON",
+  "state_off": "OFF",
+  "device": {
+    "identifiers": ["smart_plug_001"],
+    "name": "Smart Plug",
+    "model": "ESP+ATT7021",
+    "manufacturer": "MyCompany"
+  }
+}
+```
+
+```
+Topic: home/smartplug/relay/set
+Payload: ON
 ```
 
 
