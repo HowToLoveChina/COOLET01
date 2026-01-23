@@ -37,6 +37,62 @@ ATT7021.SCF = .S0 = 经电阻接.V2P
 ATT7021.S1 经电阻接 RESET/       
 查表可知101 对应倍率是64倍
 
+通过计算输出信号CF的平均周期计算出功率，累计CF的数量确定用电量。
+
+### 功率计量的MQTT上报在HomeAssitant
+
+
+
+.topic homeassistant/<component>/<device_id>/<object_id>/config
+```json
+{
+  "name": "Smart Plug Power",
+  "unique_id": "smart_plug_power_001",
+  "state_topic": "home/smartplug/state",
+  "value_template": "{{ value_json.power }}",
+  "unit_of_measurement": "W",
+  "device_class": "power",
+  "state_class": "measurement",
+  "device": {
+    "identifiers": ["smart_plug_001"],
+    "name": "Smart Plug",
+    "model": "ESP32+ATT7021",
+    "manufacturer": "MyCompany"
+  }
+}
+```
+
+
+.topic  homeassistant/sensor/smart_plug/power/config 
+
+```
+{
+  "name": "Smart Plug Power",
+  "unique_id": "smart_plug_power_001",
+  "state_topic": "home/smartplug/state",
+  "value_template": "{{ value_json.power }}",
+  "unit_of_measurement": "W",
+  "device_class": "power",
+  "state_class": "measurement",
+  "device": {
+    "identifiers": ["smart_plug_001"],
+    "name": "Smart Plug",
+    "model": "ESP32+ATT7021",
+    "manufacturer": "MyCompany"
+  }
+}
+```
+
+具体上报到 home/smartplug/state 
+
+```
+{
+  "power": 356.4,
+  "energy": 12.345
+}
+```
+
+
 RSTB与GPIO16短接才能低功耗
 
 VCC,GND,U0RXD,U0TXD 接串口，GPIO0接地，刷写模块成功
